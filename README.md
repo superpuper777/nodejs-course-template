@@ -1,72 +1,57 @@
-# RS School REST service
+# Caesar-CLI
 
-## Prerequisites
+Утилита для шифровки и дешифровки текста по средствам [шифра Цезаря](https://en.wikipedia.org/wiki/Caesar_cipher).
 
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+## Версия node
 
-## Downloading
+v14.13.0
 
-```
-git clone {repository URL}
-```
+## Установка
 
-## Installing NPM modules
+`git clone https://github.com/shazzzam/caesar-cli && cd caesar-cli && npm i`
 
-```
-npm install
-```
+## Использование
 
-## Running application
+Запуск - `node caesar`, доступные опции:
 
-```
-npm start
-```
+- **-s, --shift** - целое число. Сдвиг ключа Цезаря. Обязательный параметр
+- **-a, --action** - действие шифровка/разшифровка. Может принимать значения **encode/decode**. Обязательный Параметр
+- **-i, --input** - файл входных данных. Строка содержащая путь к файлу с текстом для шифрования. Если данный параметр не задан, то данные беруться из входного потока stdin
+- **-o, --output** - файл выходных данных. Строка содержащая путь к файлу для записи результата работы. Если данный параметр не задан, то данные выводятся в выходной поток stdout
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+Для завершения работы приложения в режиме работы с stdin необходимо нажать **ctrl + c**
 
-## Testing
-
-After application running open new terminal and enter:
-
-To run all tests without authorization
+### Примеры использования
 
 ```
-npm test
+node caesar -s 5 -a decode
+ABcd -input
+VWxy -output
+
+I like it
+D gdfz do
+
+node caesar -s 16 -a encode
+
+My name is Alena
+Co dqcu yi Qbudq
 ```
 
-To run only one of all test suites (users, boards or tasks)
-
 ```
-npm test <suite name>
-```
+node caesar --shift 10 --action encode --input input.txt --output output.txt
 
-To run all test with authorization
+input.txt >
+adveabqaafafAFGWGW
 
-```
-npm run test:auth
+output.txt >
+cfxgcdscchchCHIYIY
 ```
 
-To run only specific test suite with authorization (users, boards or tasks)
+```
+node caesar --shift 43 -a encode -o output.txt
+Game over! #$""""1234
+
+output.txt >
+Xrdv fmvi! #$""""1234
 
 ```
-npm run test:auth <suite name>
-```
-
-## Development
-
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
-
-### Auto-fix and format
-
-```
-npm run lint
-```
-
-### Debugging in VSCode
-
-Press <kbd>F5</kbd> to debug.
-
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
