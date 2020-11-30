@@ -10,14 +10,34 @@ exports.actions = (shift, action, input, output) => {
   }
 
   shift = action === 'encode' ? shift * 1 : shift * -1;
-  pipeline(
-    inputStream(input),
-    transformStream(shift),
-    outputStream(output),
-    e => {
-      if (e) {
-        console.error('Somthing gone wrong', e);
-      }
+  // pipeline(
+  //   inputStream(input),
+  //   transformStream(shift),
+  //   outputStream(output),
+  //   e => {
+  //     if (e) {
+  //       console.error('Somthing gone wrong', e);
+  //     }
+  //   }
+  // );
+
+  async function run() {
+    try {
+      await pipeline(
+        await inputStream(input),
+        await transformStream(shift),
+        await outputStream(output),
+        err => {
+          if (err) {
+            console.error('Pipeline failed.', err);
+          } else {
+            console.log('Pipeline succeeded.');
+          }
+        }
+      );
+    } catch (error) {
+      console.error(`Error: ${error}`);
     }
-  );
+  }
+  run();
 };

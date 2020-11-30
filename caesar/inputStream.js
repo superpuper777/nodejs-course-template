@@ -1,13 +1,15 @@
 const fs = require('fs');
 
 exports.inputStream = filename => {
-  if (filename) {
-    fs.access(filename, fs.F_OK, err => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      return fs.createReadStream(filename);
-    });
-  } else return process.stdin;
+  return new Promise(resolve => {
+    if (filename) {
+      fs.access(filename, fs.constants.F_OK, err => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        resolve(fs.createReadStream(filename, {}));
+      });
+    } else resolve(process.stdin);
+  });
 };
